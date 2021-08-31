@@ -10,11 +10,12 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Will open [http://localhost:3000/btc-usd] to view it in the browser.
+When first load app, please wait for a while
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-###
+### Notes
 
-Use websockets to get live asset data from coinbase
-Use React/Redux/Typescript and rxjs
+1. Use React/Redux/Typescript and rxjs
+2. Use websockets to get live asset data from coinbase, create the bid/ask price chart and order book

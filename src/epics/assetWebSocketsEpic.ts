@@ -22,9 +22,6 @@ import { State } from "../types/State";
 type ConnectActions = ActionType<
   typeof assetsActions.assetsWebSocketConnectAction
 >;
-type DisconnectActions = ActionType<
-  typeof assetsActions.assetsWebSocketDisconnectAction
->;
 const socket$ = webSocket<AssetMsgProps>("wss://ws-feed.pro.coinbase.com");
 const eventEmitter = getEventEmitter();
 const dataFeedBids: number[] = [];
@@ -93,28 +90,6 @@ export const assetWebSocketsConnectEpic: Epic<
         (error) => console.log("error", error),
         () => console.log("closed")
       );
-      return assets$;
-    })
-  );
-
-export const assetWebSocketsDisconnectEpic: Epic<
-  DisconnectActions,
-  DisconnectActions,
-  State
-> = (action$) =>
-  action$.pipe(
-    filter(isActionOf(assetsActions.assetsWebSocketDisconnectAction)),
-    mergeMap((action) => {
-      const assets$ = socket$.multiplex(
-        () => ({
-          type: "unsubscribe",
-          product_ids: ["BTC-USD", "ETH-USD", "LTC-USD", "BCH-USD"],
-          channels: ["level2", "heartbeat"],
-        }),
-        () => ({ unsub: action }),
-        (msg) => msg === action
-      );
-      socket$.complete();
       return assets$;
     })
   );

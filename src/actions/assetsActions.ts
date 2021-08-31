@@ -13,10 +13,6 @@ export const assetsWebSocketConnectAction = createAction(
   "CONNECT_ASSETS_WEBSOCKET_ACTION"
 )();
 
-export const assetsWebSocketDisconnectAction = createAction(
-  "DISCONNECT_ASSETS_WEBSOCKET_ACTION"
-)();
-
 export const assetsWebSocketStartMessageAction = createAction(
   "START_MESSAGE_ASSETS_WEBSOCKET_ACTION"
 )();
