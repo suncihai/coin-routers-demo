@@ -32,7 +32,7 @@ export const Card: React.FC<CardProps> = ({ type, bgColor }) => {
             mb="5px"
           />
           <Label
-            text={type === "bid" ? "Best Price" : "Ask Price"}
+            text={type === "bid" ? "Bid Price" : "Ask Price"}
             align="left"
           />
         </Container>

@@ -1,3 +1,6 @@
+import { chartProps } from "./types/Asset";
+import { blue, orange } from "./theme";
+
 export const assetOptions = [
   {
     key: "BTC_USD",
@@ -40,3 +43,124 @@ export const assetOptions = [
     },
   },
 ];
+
+export const getDefaultOption = (
+  assetParam: string,
+  dataFeedBids: number[],
+  dataFeedAsks: number[]
+): chartProps => ({
+  title: {
+    text: `${assetParam.toUpperCase()} Price`,
+  },
+  tooltip: {
+    trigger: "axis",
+  },
+  legend: {
+    data: ["Bids", "Asks"],
+  },
+  toolbox: {
+    show: true,
+    feature: {
+      dataView: { readOnly: false },
+      restore: {},
+      saveAsImage: {},
+    },
+  },
+  grid: {
+    top: 60,
+    left: 60,
+    right: 60,
+    bottom: 30,
+  },
+  dataZoom: {
+    show: false,
+    start: 0,
+    end: 100,
+  },
+  visualMap: {
+    show: false,
+    min: 0,
+    max: 1000,
+  },
+  color: ["#009ece", "#fcb146"],
+  xAxis: [
+    {
+      type: "category",
+      boundaryGap: true,
+      data: (function () {
+        let now = new Date();
+        let res = [];
+        let len = 50;
+        while (len--) {
+          res.unshift(now.toLocaleTimeString().replace(/^\D*/, ""));
+          now = new Date(Number(now) - 2000);
+        }
+        return res;
+      })(),
+    },
+    {
+      type: "category",
+      boundaryGap: true,
+      data: (function () {
+        let now = new Date();
+        let res = [];
+        let len = 50;
+        while (len--) {
+          res.unshift(now.toLocaleTimeString().replace(/^\D*/, ""));
+          now = new Date(Number(now) - 2000);
+        }
+        return res;
+      })(),
+    },
+  ],
+  yAxis: [
+    {
+      type: "value",
+      scale: true,
+      name: "Price",
+      max: 0,
+      min: 0,
+      boundaryGap: [0.2, 0.2],
+    },
+    {
+      type: "value",
+      scale: true,
+      name: "Price",
+      max: 0,
+      min: 0,
+      boundaryGap: [0.2, 0.2],
+    },
+  ],
+  series: [
+    {
+      name: "Bids",
+      type: "line",
+      xAxisIndex: 1,
+      yAxisIndex: 1,
+      itemStyle: {
+        normal: {
+          barBorderRadius: 4,
+        },
+      },
+      animationEasing: "elasticOut",
+      animationDelay: function (idx) {
+        return idx * 10;
+      },
+      animationDelayUpdate: function (idx) {
+        return idx * 10;
+      },
+      lineStyle: {
+        color: blue,
+      },
+      data: dataFeedBids,
+    },
+    {
+      name: "Asks",
+      type: "line",
+      lineStyle: {
+        color: orange,
+      },
+      data: dataFeedAsks,
+    },
+  ],
+});
