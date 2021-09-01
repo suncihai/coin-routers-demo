@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import _ from "lodash";
 import ReactECharts from "echarts-for-react-typescript";
@@ -6,6 +6,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Container } from "./Container";
 import { Card } from "./Card";
 import { Label } from "./Label";
+import { useInterval } from "../hooks/useInterval";
 import { assetOptions, getDefaultOption } from "../constant";
 import {
   selectBidBest,
@@ -64,12 +65,9 @@ export const Chart: React.FC = () => {
     [history]
   );
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      fetchNewData();
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [fetchNewData]);
+  useInterval(() => {
+    fetchNewData();
+  }, 1000);
 
   return (
     <>
