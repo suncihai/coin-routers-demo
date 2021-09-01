@@ -7,7 +7,7 @@ import { Container } from "./Container";
 import { Card } from "./Card";
 import { Label } from "./Label";
 import { useInterval } from "../hooks/useInterval";
-import { assetOptions, getDefaultOption } from "../constant";
+import { useChart } from "../hooks/useChart";
 import {
   selectBidBest,
   selectAskBest,
@@ -26,12 +26,12 @@ export const Chart: React.FC = () => {
   const dataFeedBids = useSelector(selectDataFeedBids);
   const dataFeedAsks = useSelector(selectDataFeedAsks);
 
-  const DEFAULT_OPTION: chartProps = getDefaultOption(
+  const { assetOptions, chartDefaultOption } = useChart(
     assetParam,
     dataFeedBids,
     dataFeedAsks
   );
-  const [option, setOption] = useState<chartProps>(DEFAULT_OPTION);
+  const [option, setOption] = useState<chartProps>(chartDefaultOption);
   const [crypto, setCrypto] = useState<string>(assetParam.toUpperCase());
 
   const fetchNewData = useCallback(() => {
