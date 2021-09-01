@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as assetsActions from "./actions/assetsActions";
@@ -7,6 +7,7 @@ import {
   selectOrderBookBids,
   selectOrderBookAsks,
 } from "./selectors/assetsSelectors";
+import { useScroll } from "./hooks/useScroll";
 import { Chart } from "./components/Chart";
 import { OrderBook } from "./components/OrderBook";
 import { Container } from "./components/Container";
@@ -15,10 +16,12 @@ import "./App.css";
 export const App = () => {
   const dispatch = useDispatch();
   const asset = useSelector(selectAsset);
+  const lastYoffset = useRef(0);
   const { assetParam } = useParams<{ assetParam: string }>();
   const orderBookBids = useSelector(selectOrderBookBids);
   const orderBookAsks = useSelector(selectOrderBookAsks);
 
+  useScroll(lastYoffset);
   useEffect(() => {
     dispatch(assetsActions.updateAssetAction(assetParam.toUpperCase()));
     dispatch(assetsActions.assetsWebSocketConnectAction());
