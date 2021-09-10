@@ -2,13 +2,29 @@ export type AssetProps = {
   assets: Asset[];
   asset: string;
   assetsStream: AssetMsgProps;
+  balance: number;
   bidBest: BidProps;
+  buyOrder: BuySellProps;
+  sellOrder: BuySellProps;
   askBest: AskProps;
   dataFeedBids: number[];
   dataFeedAsks: number[];
   orderBookBids: BidProps[];
   orderBookAsks: AskProps[];
+  orders: BuySellOrderProps[];
 };
+
+export type BuySellOrderProps = {
+  direction: string;
+  price: number;
+  amount: number;
+  createdAt: string;
+}
+
+export type BuySellProps = {
+  price: number;
+  amount: number;
+}
 
 export type BidProps = {
   productId: string;

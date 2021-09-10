@@ -1,5 +1,5 @@
 import { createAction, createAsyncAction } from "typesafe-actions";
-import { Asset, AskProps, BidProps } from "../types/Asset";
+import { Asset, AskProps, BidProps, BuySellProps, BuySellOrderProps } from "../types/Asset";
 
 export const getAssetsAction = createAsyncAction(
   "GET_ASSETS_REQUEST",
@@ -40,3 +40,15 @@ export const orderBookBidsAction = createAction("ORDER_BOOK_BIDS_ACTION")<
 export const orderBookAsksAction = createAction("ORDER_BOOK_ASKS_ACTION")<
   AskProps[]
 >();
+
+export const buyOrderAction = createAction(
+  "BUY_ORDER_ACTION"
+)<BuySellProps>();
+
+export const sellOrderAction = createAction(
+  "SELL_ORDER_ACTION"
+)<BuySellProps>();
+
+export const orderAction = createAction(
+  "ORDER_ACTION"
+)<BuySellOrderProps>();

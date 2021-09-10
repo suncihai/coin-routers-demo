@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Container } from "./Container";
 import { Label } from "./Label";
 import { Table, Tbody, Thead, Th, Tr, Td } from "../components/Table";
+import * as assetsActions from "../actions/assetsActions";
 import { BidProps, AskProps } from "../types/Asset";
 
 type OrderBookProps = {
@@ -15,7 +17,16 @@ export const OrderBook: React.FC<OrderBookProps> = ({
   orderBook,
   asset,
 }) => {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+
+  const handleBuySell = useCallback((order) => (event: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
+    type === "bid" && dispatch(assetsActions.buyOrderAction({
+      price: Number((order as BidProps).bidPrice), amount: Number((order as BidProps).bidAmount)
+    }))
+    type === "ask" && dispatch(assetsActions.sellOrderAction({
+      price: Number((order as AskProps).askPrice), amount: Number((order as AskProps).askAmount)
+    }))
+  }, [dispatch, type])
 
   return (
     <Container border width="50%" pd="10px 0 0 0">
@@ -42,7 +53,7 @@ export const OrderBook: React.FC<OrderBookProps> = ({
           <Tbody>
             {orderBook &&
               orderBook.map((order, index) => (
-                <Tr key={index}>
+                <Tr key={index} onClick={handleBuySell(order)}>
                   <Td>
                     <Label
                       text={
@@ -63,7 +74,7 @@ export const OrderBook: React.FC<OrderBookProps> = ({
                       type={type === "bid" ? "red-text" : "green-text"}
                     />
                   </Td>
-                  <Td>{}</Td>
+                  <Td>{ }</Td>
                 </Tr>
               ))}
           </Tbody>

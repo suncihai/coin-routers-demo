@@ -11,10 +11,19 @@ export const commonInitState: AssetProps = {
     changes: [],
     time: "",
   },
+  balance: 100000,
   bidBest: {
     productId: "BTC-USD",
     bidPrice: "",
     bidAmount: "",
+  },
+  buyOrder: {
+    price: 0,
+    amount: 0
+  },
+  sellOrder: {
+    price: 0,
+    amount: 0
   },
   askBest: {
     productId: "BTC-USD",
@@ -25,6 +34,7 @@ export const commonInitState: AssetProps = {
   dataFeedAsks: [],
   orderBookBids: [],
   orderBookAsks: [],
+  orders: [],
 };
 
 export const assetsReducer = createReducer<
@@ -58,4 +68,14 @@ export const assetsReducer = createReducer<
   .handleAction(assetsActions.updateAssetAction, (state, { payload }) => ({
     ...state,
     asset: payload,
+  }))
+  .handleAction(assetsActions.buyOrderAction, (state, { payload }) => ({
+    ...state,
+    buyOrder: payload,
+  })).handleAction(assetsActions.sellOrderAction, (state, { payload }) => ({
+    ...state,
+    sellOrder: payload,
+  })).handleAction(assetsActions.orderAction, (state, { payload }) => ({
+    ...state,
+    orders: [...state.orders, payload],
   }));
