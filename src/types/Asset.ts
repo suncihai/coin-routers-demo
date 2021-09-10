@@ -3,6 +3,7 @@ export type AssetProps = {
   asset: string;
   assetsStream: AssetMsgProps;
   balance: number;
+  frozen: number;
   bidBest: BidProps;
   buyOrder: BuySellProps;
   sellOrder: BuySellProps;

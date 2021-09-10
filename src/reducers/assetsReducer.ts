@@ -12,6 +12,7 @@ export const commonInitState: AssetProps = {
     time: "",
   },
   balance: 100000,
+  frozen: 0,
   bidBest: {
     productId: "BTC-USD",
     bidPrice: "",
@@ -78,4 +79,5 @@ export const assetsReducer = createReducer<
   })).handleAction(assetsActions.orderAction, (state, { payload }) => ({
     ...state,
     orders: [...state.orders, payload],
+    frozen: payload.direction === "Buy" ? (state.frozen + (payload.amount * payload.price)) : state.frozen,
   }));
