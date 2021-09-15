@@ -20,3 +20,4 @@ You will also see any lint errors in the console.
 1. Use React/Redux/Typescript and rxjs
 2. Use websockets to get live asset data from coinbase, create the bid/ask price chart and order book
 3. latest create-react-app typescript has a bug that maybe automatically change jxs to react-jsx in tsconfig.json, can add DISABLE_NEW_JSX_TRANSFORM=true in .env
+4. can click on OrderBook and that order will automatically input into buy/sell card left side. Left side is a mock buy/sell func board.
